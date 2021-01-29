@@ -25,6 +25,9 @@ io.on('connection', socket => {
     // Emits a welcome message to the chat room after successful connection
     socket.emit('message', 'Welcome to ChatCord!');
 
+    // Informs everyone (except the person connecting) of new user joining the chat room
+    socket.broadcast.emit('message', 'A user has joined the chat!');
+
 });
 
 // The port for the server
