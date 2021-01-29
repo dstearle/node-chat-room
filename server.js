@@ -1,8 +1,13 @@
 // Imports
+const path = require('path');
+const http = require('http');
 const express = require('express');
 
 // Initiates express
 const app = express();
+
+// Creates http server
+const server = http.createServer(app);
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -11,4 +16,4 @@ app.use(express.static(path.join(__dirname, 'public')));
 const PORT = 3000 || process.env.PORT;
 
 // Runs the server
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
