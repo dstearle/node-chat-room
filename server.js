@@ -19,7 +19,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Run when client connects
 io.on('connection', socket => {
 
+    // Informs the terminal of successful connection
     console.log('New WS connection...');
+
+    // Emits a welcome message to the chat room after successful connection
+    socket.emit('message', 'Welcome to ChatCord!');
 
 });
 
