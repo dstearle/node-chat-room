@@ -28,6 +28,13 @@ io.on('connection', socket => {
     // Informs everyone (except the person connecting) of new user joining the chat room
     socket.broadcast.emit('message', 'A user has joined the chat!');
 
+    // Runs when client disconnects
+    socket.on('disconnect', () => {
+
+        io.emit('message', 'A user has left the chat');
+        
+    });
+
 });
 
 // The port for the server
