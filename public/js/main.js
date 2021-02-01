@@ -9,6 +9,9 @@ socket.on('message', message => {
 
     console.log(message);
 
+    // The message to be added to the chat
+    outputMessage(message);
+
 });
 
 // Message submit
@@ -19,6 +22,25 @@ chatForm.addEventListener('submit', (e) => {
     // The message from the text input
     const msg = e.target.elements.msg.value;
 
-    console.log(msg);
+    // Emit message to the server
+    socket.emit('chatMessage', msg);
 
 });
+
+// Output message to DOM
+function outputMessage(message) {
+
+    // Creates a div element in the DOM to hold the message
+    const div = document.createElement('div');
+
+    // Applies the css class 'message' to the new div
+    div.classList.add('message');
+
+    // The content to go inside of the new div
+    div.innerHTML = `<p class='meta'>Dallas <span>2:00am</span></p>
+    <p class='text'>${ message }</p>`;
+
+    // Appends the new div into the chat
+    document.querySelector('.chat-messages').appendChild(div);
+
+}
