@@ -45,8 +45,8 @@ function outputMessage(message) {
     div.classList.add('message');
 
     // The content to go inside of the new div
-    div.innerHTML = `<p class='meta'>Dallas <span>2:00am</span></p>
-    <p class='text'>${ message }</p>`;
+    div.innerHTML = `<p class='meta'>${ message.userName } <span>${ message.time }</span></p>
+    <p class='text'>${ message.text }</p>`;
 
     // Appends the new div into the chat
     document.querySelector('.chat-messages').appendChild(div);
