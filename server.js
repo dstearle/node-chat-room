@@ -38,8 +38,6 @@ io.on('connection', socket => {
         // Emits a welcome message to the chat room after successful connection
         socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
 
-        console.log(user)
-
         // Informs everyone (except the person connecting) of new user joining the chat room
         socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${ user.username } has joined the chat!`));
 
@@ -47,7 +45,7 @@ io.on('connection', socket => {
         io.to(user.room).emit('roomUsers', {
 
             room: user.room,
-            users: getRoomUsers(user.root)
+            users: getRoomUsers(user.room)
 
         });
 
@@ -77,7 +75,7 @@ io.on('connection', socket => {
         io.to(user.room).emit('roomUsers', {
 
             room: user.room,
-            users: getRoomUsers(user.root)
+            users: getRoomUsers(user.room)
             
         });
 
