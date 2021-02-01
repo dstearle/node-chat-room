@@ -3,7 +3,7 @@ const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 
 // Get username and room from the URL
-const { userName, room } = Qs.parse(location.search, {
+const { username, room } = Qs.parse(location.search, {
 
     ignoreQueryPrefix: true
 
@@ -13,7 +13,7 @@ const { userName, room } = Qs.parse(location.search, {
 const socket = io();
 
 // Join chatroom
-socket.emit('joinRoom', { userName, room });
+socket.emit('joinRoom', { username, room });
 
 // Fires off a message in the socket
 socket.on('message', message => {
@@ -55,7 +55,7 @@ function outputMessage(message) {
     div.classList.add('message');
 
     // The content to go inside of the new div
-    div.innerHTML = `<p class='meta'>${ message.userName } <span>${ message.time }</span></p>
+    div.innerHTML = `<p class='meta'>${ message.username } <span>${ message.time }</span></p>
     <p class='text'>${ message.text }</p>`;
 
     // Appends the new div into the chat
