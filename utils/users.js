@@ -13,3 +13,10 @@ function userJoin(id, username, room) {
     return user;
 
 }
+
+// Get Current User
+function getCurrentUser(id) {
+
+    return user.find(user => user.id === id);
+
+}
