@@ -1,5 +1,6 @@
 // The form used by chat.html
 const chatForm = document.getElementById('chat-form');
+const chatMessages = document.querySelector('.chat-messages');
 
 // Initiates a socket
 const socket = io();
@@ -11,6 +12,9 @@ socket.on('message', message => {
 
     // The message to be added to the chat
     outputMessage(message);
+
+    // Scroll down to latest message
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
 });
 
