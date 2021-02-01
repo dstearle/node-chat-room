@@ -43,6 +43,14 @@ io.on('connection', socket => {
         // Informs everyone (except the person connecting) of new user joining the chat room
         socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${ user.username } has joined the chat!`));
 
+        // Send users and chat info
+        io.to(user.room).emit('roomUsers', {
+
+            room: user.room,
+            users: getRoomUsers(user.root)
+
+        });
+
     });
 
     // Listen for chat message
@@ -64,6 +72,14 @@ io.on('connection', socket => {
             io.to(user.room).emit('message', formatMessage(botName, `${ user.username } has left the chat`));
 
         }
+
+        // Send users and chat info
+        io.to(user.room).emit('roomUsers', {
+
+            room: user.room,
+            users: getRoomUsers(user.root)
+            
+        });
 
     });
 
