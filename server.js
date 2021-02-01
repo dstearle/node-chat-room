@@ -4,7 +4,7 @@ const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
 const formatMessage = require('./utils/messages');
-const { userJoin, getCurrentUser } = require('./utils/users');
+const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./utils/users');
 
 // Initiates express
 const app = express();
@@ -55,7 +55,15 @@ io.on('connection', socket => {
     // Runs when client disconnects
     socket.on('disconnect', () => {
 
-        io.emit('message', formatMessage(botName, 'A user has left the chat'));
+        // The current user leaving
+        const user = userLeave(socket.id);
+
+        // Informs other users in the chat that current user has left the chat room
+        if(user) {
+
+            io.to(user.room).emit('message', formatMessage(botName, `${ user.username } has left the chat`));
+
+        }
 
     });
 

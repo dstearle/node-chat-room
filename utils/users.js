@@ -30,7 +30,7 @@ function userLeave(id) {
     // If user exists remove them from the chat
     if(index !== -1) {
 
-        return users.splice(index, 1);
+        return users.splice(index, 1)[0];
 
     }
 
@@ -48,5 +48,7 @@ module.exports = {
 
     userJoin,
     getCurrentUser,
+    userLeave,
+    getRoomUsers
     
 };
