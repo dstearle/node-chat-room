@@ -25,16 +25,14 @@ io.on('connection', socket => {
     // Informs the terminal of successful connection
     console.log('New WS connection...');
 
-    // Emits a welcome message to the chat room after successful connection
-    socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
+    // Response once a user joins a chat room
+    socket.on('joinRoom', ({ userName, room }) => {
 
-    // Informs everyone (except the person connecting) of new user joining the chat room
-    socket.broadcast.emit('message', formatMessage(botName, 'A user has joined the chat!'));
+        // Emits a welcome message to the chat room after successful connection
+        socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
 
-    // Runs when client disconnects
-    socket.on('disconnect', () => {
-
-        io.emit('message', formatMessage(botName, 'A user has left the chat'));
+        // Informs everyone (except the person connecting) of new user joining the chat room
+        socket.broadcast.emit('message', formatMessage(botName, 'A user has joined the chat!'));
 
     });
 
@@ -42,6 +40,13 @@ io.on('connection', socket => {
     socket.on('chatMessage', (msg) => {
 
         io.emit('message', formatMessage('User', msg));
+
+    });
+
+    // Runs when client disconnects
+    socket.on('disconnect', () => {
+
+        io.emit('message', formatMessage(botName, 'A user has left the chat'));
 
     });
 
