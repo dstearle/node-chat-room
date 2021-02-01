@@ -21,6 +21,21 @@ function getCurrentUser(id) {
 
 }
 
+// When user leaves the chat
+function userLeave(id) {
+
+    // The current index for the user
+    const index = users.findIndex(user => user.id === id);
+
+    // If user exists remove them from the chat
+    if(index !== -1) {
+
+        return users.splice(index, 1);
+
+    }
+
+}
+
 
 module.exports = {
 
