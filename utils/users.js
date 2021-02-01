@@ -20,3 +20,11 @@ function getCurrentUser(id) {
     return user.find(user => user.id === id);
 
 }
+
+
+module.exports = {
+
+    userJoin,
+    getCurrentUser
+    
+};
