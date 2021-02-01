@@ -1,6 +1,11 @@
 // The form used by chat.html
 const chatForm = document.getElementById('chat-form');
+// The messages in the chat room
 const chatMessages = document.querySelector('.chat-messages');
+// The name of the current chat room
+const roomName = document.getElementById('room-name');
+// The current users in the chat room
+const userList = document.getElementById('users');
 
 // Get username and room from the URL
 const { username, room } = Qs.parse(location.search, {
@@ -14,6 +19,14 @@ const socket = io();
 
 // Join chatroom
 socket.emit('joinRoom', { username, room });
+
+// Get current room and users
+socket.on('roomUsers', ({ room, users }) => {
+
+    outputRoomName(room);
+    outputUsers(users);
+    
+});
 
 // Fires off a message in the socket
 socket.on('message', message => {
@@ -62,3 +75,10 @@ function outputMessage(message) {
     document.querySelector('.chat-messages').appendChild(div);
 
 }
+
+// Add room name to DOM
+function outputRoomName(room) {
+
+    roomName.innerText = room;
+    
+};
