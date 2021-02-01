@@ -27,10 +27,10 @@ io.on('connection', socket => {
     console.log('New WS connection...');
 
     // Response once a user joins a chat room
-    socket.on('joinRoom', ({ userName, room }) => {
+    socket.on('joinRoom', ({ username, room }) => {
 
         // The user joining the room
-        const user = userJoin(socket.id, userName, room);
+        const user = userJoin(socket.id, username, room);
 
         // Adds the user to the selected room
         socket.join(user.room);
@@ -38,8 +38,10 @@ io.on('connection', socket => {
         // Emits a welcome message to the chat room after successful connection
         socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
 
+        console.log(user)
+
         // Informs everyone (except the person connecting) of new user joining the chat room
-        socket.broadcast.emit('message', formatMessage(botName, 'A user has joined the chat!'));
+        socket.broadcast.to(user.room).emit('message', formatMessage(botName, `${ user.username } has joined the chat!`));
 
     });
 
